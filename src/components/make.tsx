@@ -14,7 +14,6 @@ const dateKeys  = ["date1", "date2", "date3"]
 
 
 export default function Make(){
-    const [count, setCount] = useState<number>(0);
     const [schedule1, setSchedule] = useState<Schedule>({
         name: 'happy',
         date1: "ok",
