@@ -23,6 +23,8 @@ export default function Make(){
         <div>
             <p>{count}</p>
             <button onClick={addOne}>+1</button>
+            <p>スケジュール1:{schedule1.date1}
+            </p>
         </div>
     )
 }
