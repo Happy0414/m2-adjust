@@ -7,10 +7,10 @@ function Code(){
 
     useEffect(()=>{
         if(dateTime.getHours()>=5 && dateTime.getHours()<10){
-            setMessage((message)=>"おはようございます");
+            setMessage(()=>"おはようございます");
         }
         else if(dateTime.getHours()>=17){
-            setMessage((message)=>"こんばんは");
+            setMessage(()=>"こんばんは");
         }
     },[message]);
 
