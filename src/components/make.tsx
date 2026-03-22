@@ -12,10 +12,6 @@ const schedule1: Schedule = {
     date3: 2
 }
 
-const partJudge = (s: Schedule) => {
-    if(s.date1 == )
-}
-
 export default function Make(){
     const [count, setCount] = useState<number>(0);
 
