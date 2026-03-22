@@ -1,0 +1,30 @@
+.okBtn{
+    color: orange;
+    border-color: orange;
+    margin-right: 20px;
+}
+
+.penBtn{
+    color: green;
+    border-color: green;
+    margin-right: 20px;
+}
+
+.noBtn{
+    color: blue;
+    border-color: blue;
+    margin-right: 20px;
+}
+
+.orange{
+    font-weight: 1000;
+    color: orange;
+}
+
+.blue{
+    color: blue;
+}
+
+.green{
+    color: green;
+}
