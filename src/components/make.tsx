@@ -1,4 +1,5 @@
 import { useState } from 'react'
+import './make.css'
 
 type Status = "ok" | "pen" | "no"
 
@@ -41,9 +42,20 @@ export default function Make(){
         return j
     }
 
+    const judgeColor = (d: Status): string => {
+        let c = ""
+
+        if(d === "no") c = "blue"
+        else if(d === "ok") c = "orange"
+        else c = "green"
+
+        return c
+    }
+
     return (
         <div>
             <div>
+                <div>
                 <p>出欠情報を入力</p>
                 <input
                     value = {schedule1.name}
@@ -62,25 +74,26 @@ export default function Make(){
                 <button onClick={() => setSchedule({
                     ...schedule1,
                     [key]: "ok"
-                })}>○</button>
+                })} className='okBtn'>○</button>
 
                 <button onClick={() => setSchedule({
                     ...schedule1,
                     [key]: "pen"
-                })}>△</button>
+                })} className='penBtn'>△</button>
 
                 <button onClick={() => setSchedule({
                     ...schedule1,
                     [key]: "no"
-                })}>×</button>
+                })} className='noBtn'>×</button>
                 </div>
             ))}
+            </div>
 
             <button onClick={removeSchedule}>削除</button>
             <p>名前：{schedule1.name}</p>
-            <p>スケジュール1：{schedule1.date1}、判定：{judgeSchedule(schedule1.date1)}</p>
-            <p>スケジュール2：{schedule1.date2}、判定：{judgeSchedule(schedule1.date2)}</p>
-            <p>スケジュール3：{schedule1.date3}、判定：{judgeSchedule(schedule1.date3)}</p>
+            <p>スケジュール1：{schedule1.date1}、判定：<span className={judgeColor(schedule1.date1)}>{judgeSchedule(schedule1.date1)}</span></p>
+            <p>スケジュール2：{schedule1.date2}、判定：<span className={judgeColor(schedule1.date2)}>{judgeSchedule(schedule1.date2)}</span></p>
+            <p>スケジュール3：{schedule1.date3}、判定：<span className={judgeColor(schedule1.date3)}>{judgeSchedule(schedule1.date3)}</span></p>
         </div>
     )
 }
