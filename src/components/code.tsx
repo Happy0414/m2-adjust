@@ -1,18 +1,15 @@
-import { useState, useEffect } from 'react'
+import { useState } from 'react'
 
 function Code(){
-    //初期メッセージの設定
-    const [message,setMessage]=useState("こんにちは");
     const dateTime=new Date();
+    const hour=dateTime.getHours();
 
-    useEffect(()=>{
-        if(dateTime.getHours()>=5 && dateTime.getHours()<10){
-            setMessage(()=>"おはようございます");
-        }
-        else if(dateTime.getHours()>=17){
-            setMessage(()=>"こんばんは");
-        }
-    },[message]);
+    const message=
+        hour>=5 && hour<10
+        ? "おはようございます"
+        : hour>=17
+        ? "こんばんは"
+        : "こんにちは";
 
     return (
         <div>
