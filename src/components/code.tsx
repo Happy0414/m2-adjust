@@ -1,5 +1,3 @@
-import { useState } from 'react'
-
 function Code(){
     const dateTime=new Date();
     const hour=dateTime.getHours();
