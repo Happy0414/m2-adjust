@@ -8,11 +8,13 @@
     "build": "tsc -b && vite build",
     "test": "vitest",
     "lint": "eslint .",
+    "fmt": "npx prettier --write ./src",
     "preview": "vite preview",
     "type-check": "tsc --noEmit"
   },
   "dependencies": {
     "@supabase/supabase-js": "^2.99.3",
+    "dotenv": "^17.3.1",
     "react": "^19.2.0",
     "react-dom": "^19.2.0"
   },
