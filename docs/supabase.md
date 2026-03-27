@@ -59,4 +59,7 @@ supabase start
 
 # migration + 初期データ投入
 supabase db reset
+
+# スキーマから型定義ファイルを作成
+supabase gen types typescript --local > src/types/database.ts
 ```
