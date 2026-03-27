@@ -40,3 +40,13 @@
 .read-the-docs {
   color: #888;
 }
+
+.topBtns{
+  position: fixed;
+  top: 0;
+  left: 0;
+}
+
+.mainContent{
+  margin-top: 60px;
+}
