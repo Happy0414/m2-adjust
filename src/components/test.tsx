@@ -1,7 +1,5 @@
-import { useState } from 'react'
-
 export default function Test() {
-    const [text, setText] = useState('test')
+    const text = 'test'
 
     return(
         <h1>{text}</h1>

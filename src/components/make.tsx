@@ -1,4 +1,4 @@
-import { useState, useEffect } from 'react'
+import { useState } from 'react'
 import './make.css'
 
 type Status = "ok" | "pen" | "no"
@@ -24,12 +24,11 @@ type Schedule = {
 
 
 const dateKeys: Keys[] = ["date1", "date2", "date3"]
-const event1: string = 'セミナー' 
 
 
 export default function Make(){
-    const[event, setEvent] = useState<Event>({
-        title: ''
+    const event: Event = ({
+        title: 'セミナー'
     })
 
     const cdates: Cdates = {
@@ -37,11 +36,6 @@ export default function Make(){
         date2: '2026-03-28',
         date3: '2026-03-29'
     }
-
-
-    useEffect(() => {
-        setEvent({title: event1})
-    },[])
 
     const [schedule1, setSchedule] = useState<Schedule>({
         name: 'happy',
