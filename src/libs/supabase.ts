@@ -1,4 +1,5 @@
-import { SupabaseClient } from "@supabase/supabase-js";
+import type { SupabaseClient } from "@supabase/supabase-js";
+import type { Database } from "../types/database.ts";
 
 type createEventInput = {
   title: string;
@@ -12,7 +13,7 @@ type createEventOutput = {
 
 // イベントを作成する
 export const createEvent = async (
-  client: SupabaseClient,
+  client: SupabaseClient<Database>,
   event: createEventInput,
 ): Promise<createEventOutput> => {
   const slug = crypto.randomUUID();

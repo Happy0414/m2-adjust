@@ -1,12 +1,13 @@
 import { test, beforeEach, describe, expect } from "vitest";
 import { createClient, SupabaseClient } from "@supabase/supabase-js";
 import { createEvent } from "./supabase.ts";
+import type { Database } from "../types/database.ts";
 import dotenv from "dotenv";
 
 const supabaseTest = describe.skipIf(process.env.CI);
 
 supabaseTest("supabase integration tests", () => {
-  let supabase: SupabaseClient;
+  let supabase: SupabaseClient<Database>;
 
   beforeEach(async () => {
     dotenv.config({ path: ".env.test" });
@@ -17,7 +18,7 @@ supabaseTest("supabase integration tests", () => {
         "VITE_SUPABASE_URL and VITE_SUPABASE_PUBLISHABLE_DEFAULT_KEY must be set",
       );
     }
-    supabase = createClient(supabaseUrl, supabaseKey);
+    supabase = createClient<Database>(supabaseUrl, supabaseKey);
   });
 
   test("create new event", async () => {
@@ -39,9 +40,9 @@ supabaseTest("supabase integration tests", () => {
       .single();
     expect(errEvent).toBeNull();
     expect(event).not.toBeNull();
-    expect(event.id).toBe(id);
-    expect(event.title).toBe(newEvent.title);
-    expect(event.description).toBe(newEvent.description);
+    expect(event!.id).toBe(id);
+    expect(event!.title).toBe(newEvent.title);
+    expect(event!.description).toBe(newEvent.description);
 
     const { data: dates, error: errDate } = await supabase
       .from("candidate_dates")

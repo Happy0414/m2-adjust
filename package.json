@@ -10,7 +10,7 @@
     "lint": "eslint .",
     "fmt": "npx prettier --write ./src",
     "preview": "vite preview",
-    "type-check": "tsc --noEmit"
+    "type-check": "tsc -b --noEmit"
   },
   "dependencies": {
     "@supabase/supabase-js": "^2.99.3",
