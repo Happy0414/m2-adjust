@@ -1,6 +1,10 @@
+// import { useState } from 'react'
+import './code.css'
+
 function Code(){
     const dateTime=new Date();
     const hour=dateTime.getHours();
+    // const [show, setShow]=useState(false);
 
     const message=
         hour>=5 && hour<10
@@ -19,59 +23,26 @@ function Code(){
                 <option>お気に入り</option>
                 <option>古い順</option>
             </select>
-            <button>+新規作成</button>
+            {/* <button onClick={()=>setShow(true)}>+新規作成</button> */}
+            {/* <Modal show={show} setShow={setShow}/> */}
         </div>
     )
 }
 
-export default Code;
-
-// const Timer=()=>{
-//     //状態管理
-//     const [time, setTime]=useState(0);
-//     const [isRunning, setIsRunning]=useState(false);
-
-//     useEffect(()=>{
-//         if(isRunning){
-//             const interval=setInterval(()=>{
-//                 setTime((prevTime)=>prevTime+1);
-//             },1000);
-
-//             return ()=>clearInterval(interval);
-//         }
-//     },[isRunning]);
-
-//     const startTimer=()=>setIsRunning(true);
-//     const stopTimer=()=>setIsRunning(false);
-//     const resetTimer=()=>{
-//         setIsRunning(false);
-//         setTime(0);
-//     };
-
-//     return (
-//         <div>
-//             <h1>{time}秒</h1>
-//             <button onClick={startTimer} disabled={isRunning}>
-//                 開始
-//             </button>
-//             <button onClick={stopTimer} disabled={!isRunning}>
-//                 停止
-//             </button>
-//             <button onClick={resetTimer}>リセット</button>
-//         </div>
-//     );
-// };
-// export default Timer;
-
-// const RealtimeClock=()=>{
-//     const dateTime=new Date();
-//     const time=dateTime.getHours()+":"+dateTime.getMinutes()+":"+dateTime.getSeconds();
-
-//     return(
-//         <div>
-//             <p>{time}</p>
-//         </div>
-//     )
+// function Modal({show, setSow}){
+//     if(show){
+//         return(
+//             <div id="overlay">
+//                 <div id="content">
+//                     <p>あいうえお</p>
+//                     <p><button onClick={()=>setShow(false)}>close</button></p>
+//                 </div>
+//             </div>
+//         )
+//     }else{
+//         return  null;
+//     }
+    
 // }
 
-// export default RealtimeClock;
+export default Code;
