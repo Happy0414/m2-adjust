@@ -71,6 +71,54 @@ export const getEventByID = async (
   return data;
 };
 
-// TODO: 回答する
+type answerCandidateDatesInput = {
+  eventId: string;
+  name: string;
+  comment?: string;
+  attendances: {
+    candidateDateId: string;
+    status: "yes" | "maybe" | "no";
+  }[];
+};
+
+type answerCandidateDatesOutput = {
+  answerId: string;
+};
+
+// 回答する
+export const answerCandidateDates = async (
+  client: SupabaseClient<Database>,
+  input: answerCandidateDatesInput,
+): Promise<answerCandidateDatesOutput> => {
+  const { data: answerRow, error: errAnswer } = await client
+    .from("answers")
+    .insert({
+      event_id: input.eventId,
+      name: input.name,
+      comment: input.comment ?? null,
+    })
+    .select("id")
+    .single();
+
+  if (errAnswer) {
+    throw new Error("failed to create answer", { cause: errAnswer });
+  }
+
+  const attendanceRows = input.attendances.map((a) => ({
+    answer_id: answerRow.id,
+    candidate_date_id: a.candidateDateId,
+    status: a.status,
+  }));
+
+  const { error: errAttendances } = await client
+    .from("attendances")
+    .insert(attendanceRows);
+
+  if (errAttendances) {
+    throw new Error("failed to insert attendances", { cause: errAttendances });
+  }
+
+  return { answerId: answerRow.id };
+};
 
 // TODO: 回答を編集
