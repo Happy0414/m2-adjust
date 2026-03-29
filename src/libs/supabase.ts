@@ -121,4 +121,45 @@ export const answerCandidateDates = async (
   return { answerId: answerRow.id };
 };
 
-// TODO: 回答を編集
+type editAnswerInput = {
+  answerId: string;
+  name: string;
+  comment?: string;
+  attendances: {
+    candidateDateId: string;
+    status: "yes" | "maybe" | "no";
+  }[];
+};
+
+// 回答を編集
+export const editAnswer = async (
+  client: SupabaseClient<Database>,
+  input: editAnswerInput,
+): Promise<void> => {
+  const { error: errAnswer } = await client
+    .from("answers")
+    .update({
+      name: input.name,
+      comment: input.comment ?? null,
+    })
+    .eq("id", input.answerId);
+
+  if (errAnswer) {
+    throw new Error("failed to update answer", { cause: errAnswer });
+  }
+
+  const results = await Promise.all(
+    input.attendances.map((a) =>
+      client
+        .from("attendances")
+        .update({ status: a.status })
+        .eq("answer_id", input.answerId)
+        .eq("candidate_date_id", a.candidateDateId),
+    ),
+  );
+
+  const errAttendance = results.find((r) => r.error)?.error;
+  if (errAttendance) {
+    throw new Error("failed to update attendances", { cause: errAttendance });
+  }
+};

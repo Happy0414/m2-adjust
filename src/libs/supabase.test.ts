@@ -1,6 +1,11 @@
 import { test, beforeEach, describe, expect } from "vitest";
 import { createClient, SupabaseClient } from "@supabase/supabase-js";
-import { createEvent, getEventByID, answerCandidateDates } from "./supabase.ts";
+import {
+  createEvent,
+  getEventByID,
+  answerCandidateDates,
+  editAnswer,
+} from "./supabase.ts";
 import type { Database } from "../types/database.ts";
 import dotenv from "dotenv";
 
@@ -117,5 +122,48 @@ supabaseTest("supabase integration tests", () => {
     expect(answer.attendances[0].status).toBe("yes");
     expect(answer.attendances[1].candidate_date_id).toBe(cd2.id);
     expect(answer.attendances[1].status).toBe("maybe");
+  });
+
+  test("edit answer", async () => {
+    const newEvent = {
+      title: "EditAnswerTest",
+      description: "edit answer test.",
+      dates: [
+        new Date("2026-04-01T19:00:00+09:00"),
+        new Date("2026-04-02T19:00:00+09:00"),
+      ],
+    };
+    const { id: eventId } = await createEvent(supabase, newEvent);
+
+    const created = await getEventByID(supabase, eventId);
+    const [cd1, cd2] = created.candidate_dates;
+
+    const { answerId } = await answerCandidateDates(supabase, {
+      eventId,
+      name: "田中",
+      attendances: [
+        { candidateDateId: cd1.id, status: "yes" },
+        { candidateDateId: cd2.id, status: "no" },
+      ],
+    });
+
+    await editAnswer(supabase, {
+      answerId,
+      name: "田中",
+      comment: "変更しました",
+      attendances: [
+        { candidateDateId: cd1.id, status: "maybe" },
+        { candidateDateId: cd2.id, status: "yes" },
+      ],
+    });
+
+    const event = await getEventByID(supabase, eventId);
+    const answer = event.answers[0];
+    expect(answer.name).toBe("田中");
+    expect(answer.comment).toBe("変更しました");
+    expect(answer.attendances[0].candidate_date_id).toBe(cd1.id);
+    expect(answer.attendances[0].status).toBe("maybe");
+    expect(answer.attendances[1].candidate_date_id).toBe(cd2.id);
+    expect(answer.attendances[1].status).toBe("yes");
   });
 });
