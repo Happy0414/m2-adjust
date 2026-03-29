@@ -1,5 +1,5 @@
 import type { SupabaseClient } from "@supabase/supabase-js";
-import type { Database } from "../types/database.ts";
+import type { Database, Tables } from "../types/database.ts";
 
 type createEventInput = {
   title: string;
@@ -45,3 +45,31 @@ export const createEvent = async (
 
   return { id: eventRow.id };
 };
+
+type getEventOutput = Tables<"events"> & {
+  candidate_dates: (Tables<"candidate_dates"> & {
+    answers: Tables<"answers">[];
+  })[];
+};
+
+// イベント取得
+export const getEventByID = async (
+  client: SupabaseClient<Database>,
+  id: string,
+): Promise<getEventOutput> => {
+  const { data, error } = await client
+    .from("events")
+    .select("*, candidate_dates(*, answers(*))")
+    .eq("id", id)
+    .single();
+
+  if (error) {
+    throw new Error("failed to get event", { cause: error });
+  }
+
+  return data;
+};
+
+// TODO: 回答する
+
+// TODO: 回答を編集
