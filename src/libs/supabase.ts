@@ -1,5 +1,10 @@
-import type { SupabaseClient } from "@supabase/supabase-js";
+import { SupabaseClient, createClient } from "@supabase/supabase-js";
 import type { Database, Tables } from "../types/database.ts";
+
+export const supabase = createClient<Database>(
+  import.meta.env.VITE_SUPABASE_URL,
+  import.meta.env.VITE_SUPABASE_PUBLISHABLE_DEFAULT_KEY,
+);
 
 type createEventInput = {
   title: string;
