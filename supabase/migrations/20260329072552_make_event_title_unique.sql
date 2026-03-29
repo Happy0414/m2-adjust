@@ -1,0 +1,1 @@
+ALTER TABLE events ADD CONSTRAINT events_title_unique UNIQUE (title);

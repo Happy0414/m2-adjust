@@ -36,45 +36,68 @@ export type Database = {
     Tables: {
       answers: {
         Row: {
-          candidate_date_id: string
           comment: string | null
           created_at: string | null
           event_id: string
           id: string
           name: string
-          status: string
         }
         Insert: {
-          candidate_date_id: string
           comment?: string | null
           created_at?: string | null
           event_id: string
           id?: string
           name: string
-          status: string
         }
         Update: {
-          candidate_date_id?: string
           comment?: string | null
           created_at?: string | null
           event_id?: string
           id?: string
           name?: string
-          status?: string
         }
         Relationships: [
-          {
-            foreignKeyName: "answers_candidate_date_id_fkey"
-            columns: ["candidate_date_id"]
-            isOneToOne: false
-            referencedRelation: "candidate_dates"
-            referencedColumns: ["id"]
-          },
           {
             foreignKeyName: "answers_event_id_fkey"
             columns: ["event_id"]
             isOneToOne: false
             referencedRelation: "events"
+            referencedColumns: ["id"]
+          },
+        ]
+      }
+      attendances: {
+        Row: {
+          answer_id: string
+          candidate_date_id: string
+          id: string
+          status: string
+        }
+        Insert: {
+          answer_id: string
+          candidate_date_id: string
+          id?: string
+          status: string
+        }
+        Update: {
+          answer_id?: string
+          candidate_date_id?: string
+          id?: string
+          status?: string
+        }
+        Relationships: [
+          {
+            foreignKeyName: "attendances_answer_id_fkey"
+            columns: ["answer_id"]
+            isOneToOne: false
+            referencedRelation: "answers"
+            referencedColumns: ["id"]
+          },
+          {
+            foreignKeyName: "attendances_candidate_date_id_fkey"
+            columns: ["candidate_date_id"]
+            isOneToOne: false
+            referencedRelation: "candidate_dates"
             referencedColumns: ["id"]
           },
         ]

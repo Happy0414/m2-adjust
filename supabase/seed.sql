@@ -2,7 +2,8 @@
 
 -- イベント1件（飲み会の日程調整）
 -- 候補日程3件（4/10〜4/12）
--- 回答6件（田中・鈴木の各候補日への回答）
+-- 回答2件（田中・鈴木 各1件）
+-- 出欠6件（各ユーザー × 3候補日）
 
 -- events
 INSERT INTO events (id, title, description, slug, created_at) VALUES (
@@ -14,7 +15,7 @@ INSERT INTO events (id, title, description, slug, created_at) VALUES (
 );
 
 -- candidate_dates
-INSERT INTO candidate_dates (id, event_id, date) VALUES 
+INSERT INTO candidate_dates (id, event_id, date) VALUES
     (
         'b1b2c3d4-0000-0000-0000-000000000001',
         'a1b2c3d4-0000-0000-0000-000000000001',
@@ -31,47 +32,26 @@ INSERT INTO candidate_dates (id, event_id, date) VALUES
         '2026-04-12 19:00:00'
     );
 
--- answers
-INSERT INTO answers (event_id, candidate_date_id, name, status, comment) VALUES
+-- answers (ユーザーごと 1 件)
+INSERT INTO answers (id, event_id, name, comment) VALUES
     (
+        'c1b2c3d4-0000-0000-0000-000000000001',
         'a1b2c3d4-0000-0000-0000-000000000001',
-        'b1b2c3d4-0000-0000-0000-000000000001',
         '田中',
-        'yes',
         '参加できます！'
     ),
     (
+        'c1b2c3d4-0000-0000-0000-000000000002',
         'a1b2c3d4-0000-0000-0000-000000000001',
-        'b1b2c3d4-0000-0000-0000-000000000002',
-        '田中',
-        'maybe',
-        NULL
-    ),
-    (
-        'a1b2c3d4-0000-0000-0000-000000000001',
-        'b1b2c3d4-0000-0000-0000-000000000003',
-        '田中',
-        'no',
-        '予定あり'
-    ),
-    (
-        'a1b2c3d4-0000-0000-0000-000000000001',
-        'b1b2c3d4-0000-0000-0000-000000000001',
         '鈴木',
-        'yes',
-        NULL
-    ),
-    (
-        'a1b2c3d4-0000-0000-0000-000000000001',
-        'b1b2c3d4-0000-0000-0000-000000000002',
-        '鈴木',
-        'yes',
-        NULL
-    ),
-    (
-        'a1b2c3d4-0000-0000-0000-000000000001',
-        'b1b2c3d4-0000-0000-0000-000000000003',
-        '鈴木',
-        'maybe',
         '調整できるかも'
     );
+
+-- attendances 
+INSERT INTO attendances (answer_id, candidate_date_id, status) VALUES
+    ('c1b2c3d4-0000-0000-0000-000000000001', 'b1b2c3d4-0000-0000-0000-000000000001', 'yes'),
+    ('c1b2c3d4-0000-0000-0000-000000000001', 'b1b2c3d4-0000-0000-0000-000000000002', 'maybe'),
+    ('c1b2c3d4-0000-0000-0000-000000000001', 'b1b2c3d4-0000-0000-0000-000000000003', 'no'),
+    ('c1b2c3d4-0000-0000-0000-000000000002', 'b1b2c3d4-0000-0000-0000-000000000001', 'yes'),
+    ('c1b2c3d4-0000-0000-0000-000000000002', 'b1b2c3d4-0000-0000-0000-000000000002', 'yes'),
+    ('c1b2c3d4-0000-0000-0000-000000000002', 'b1b2c3d4-0000-0000-0000-000000000003', 'maybe');
