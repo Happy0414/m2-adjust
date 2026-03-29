@@ -47,8 +47,9 @@ export const createEvent = async (
 };
 
 type getEventOutput = Tables<"events"> & {
-  candidate_dates: (Tables<"candidate_dates"> & {
-    answers: Tables<"answers">[];
+  candidate_dates: Tables<"candidate_dates">[];
+  answers: (Tables<"answers"> & {
+    attendances: Tables<"attendances">[];
   })[];
 };
 
@@ -59,7 +60,7 @@ export const getEventByID = async (
 ): Promise<getEventOutput> => {
   const { data, error } = await client
     .from("events")
-    .select("*, candidate_dates(*, answers(*))")
+    .select("*, candidate_dates(*), answers(*, attendances(*))")
     .eq("id", id)
     .single();
 

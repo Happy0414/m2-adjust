@@ -76,7 +76,7 @@ supabaseTest("supabase integration tests", () => {
     expect(event.candidate_dates).toHaveLength(2);
     event.candidate_dates.forEach((cd) => {
       expect(cd.event_id).toBe(id);
-      expect(cd.answers).toEqual([]);
     });
+    expect(event.answers).toEqual([]);
   });
 });
