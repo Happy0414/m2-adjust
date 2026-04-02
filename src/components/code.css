@@ -1,4 +1,4 @@
-input{
+.search{
   font-size:24px;
   width:30em;
   height:32px;
@@ -27,4 +27,35 @@ select{
   padding:1em;
   background:#fff;
   color:black;
+}
+
+textarea{
+  height:10em;
+}
+
+.command{
+  margin:16px;
+}
+
+.btn{
+  margin:0 4px;
+}
+
+.btn.close{
+  background:white;
+  color:black;
+  border:1px solid black;
+}
+
+.btn.next{
+  background:green;
+  border:1px solid green;
+}
+
+.btn.close:hover{
+  background:rgba(0,0,0,0.2);
+}
+
+.btn.next:hover{
+  background:rgba(0, 128, 0, 0.7);
 }
