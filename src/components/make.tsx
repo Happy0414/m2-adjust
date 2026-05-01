@@ -1,5 +1,6 @@
 import { useState } from 'react'
 import './make.css'
+import ScheduleFormModal from './ScheduleFormModal'
 
 type Status = "ok" | "pen" | "no"
 type Keys = "date1" | "date2" | "date3"
@@ -44,6 +45,16 @@ export default function Make(){
         date3: "no"
     })
 
+    const [isSFModal, setSFModal] = useState<boolean>(true)
+
+    const onClose = () => {
+        if(isSFModal){
+            setSFModal(false)
+        }else{
+            setSFModal(true)
+        }
+    }
+
     const removeSchedule = () =>{
         setSchedule({
             name: '',
@@ -72,6 +83,17 @@ export default function Make(){
         else c = "green"
 
         return c
+    }
+
+    const judgeSFModal = (): string => {
+        let j = ''
+        if(isSFModal){
+            j = '閉じる'
+        } else{
+            j = 'モーダル表示'
+        }
+
+        return j
     }
 
     return (
@@ -139,6 +161,9 @@ export default function Make(){
                     </tr>
                 </tbody>
             </div>
+
+            <ScheduleFormModal isOpen={isSFModal} schedule='モーダルだよ' />
+            <button onClick={onClose}>{judgeSFModal()}</button>
         </div>
     )
 }
